@@ -13,10 +13,10 @@ datasource db {
 model Task {
   id Int @id @default(autoincrement()) @db.Int
   descricao String?
-  dataDeCadastro DateTime
-  dataDeInicio DateTime
+  dataDeCadastro String
+  dataDeInicio String?
   status Int @db.Int
-  dataPrevista DateTime
-  dataDeConclusao DateTime
+  dataPrevista String?
+  dataDeConclusao String?
   detalhes String
-}
+} 
