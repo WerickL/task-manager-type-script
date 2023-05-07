@@ -10,6 +10,6 @@ export interface TaskData{
   detalhes: string
 } 
 export interface Taskrepository{
-    create(data: any): Promise <void>
+    create(data: TaskData): Promise <Task>
     getAll(): Promise <Task[]>
 }

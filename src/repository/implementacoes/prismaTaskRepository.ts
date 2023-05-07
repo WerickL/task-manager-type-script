@@ -1,16 +1,20 @@
 import { Taskrepository, TaskData} from "../TaskRepository";
-import { prismaConnection } from "../../conection/prismaConnection";
+import { prismaService } from "../../conection/prismaService";
 import { Task } from "@prisma/client";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class prismaTaskRepository implements Taskrepository{
-    async create(data: TaskData): Promise<void> {
-      await prismaConnection.task.create({
+  constructor(private prismaService: prismaService){
+
+  }
+    async create(data: TaskData): Promise<Task> {
+     return await this.prismaService.
+      task.create({
         data 
       })
     }
     async getAll(): Promise <Task[]>  {
-      return await prismaConnection.task.findMany();
+      return await this.prismaService.task.findMany();
     }
 }
