@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
-import { prismaTaskRepository } from "src/repository/implementacoes/prismaTaskRepository";
+import { Repository } from "src/repository/Repository";
 
 
-@Controller('api')
+@Controller('task')
 export class TaskController {
-    constructor(private repository: prismaTaskRepository){
+    constructor(private repository: Repository){
     }
-    @Post("createTask")
+    @Post()
     async createTask(@Body() body: any){
         return await this.repository.create({
             descricao: body.descricao,
@@ -19,7 +19,7 @@ export class TaskController {
             }
         )
     };
-    @Get("get-tasks")
+    @Get()
     async getTasks(){
         return await this.repository.getAll();
     }
