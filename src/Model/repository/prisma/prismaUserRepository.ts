@@ -1,7 +1,5 @@
-import { User } from "@prisma/client";
 import { IUserRepository } from "../../../contratos/repository/IUserRepository";
 import { Injectable } from "@nestjs/common";
-import { NotFoundError } from "rxjs";
 import { IPrismaConnection } from "src/contratos/dbConnection/IPrismaConnection";
 import { UserData } from "src/contratos/DTOs/UserDto";
 
@@ -15,20 +13,19 @@ export class prismaUserRepository implements  IUserRepository{
             data
         })
     }
-    async getBy(data: UserData): Promise<any>{
-    //     console.log("Here")
-    //    return await this.connection.user.findFirstOrThrow({
-    //         where:{
-    //             email: data.email
-    //         }
-    //     })
-        let userFind: boolean|User 
-        return await this.connection.user.findFirst({
+    async getBy(data: UserData): Promise<UserData[]>{
+        let userFind: UserData[]
+        userFind = await this.connection.user.findMany({
             where:{
                 email: data.email
             }
         })
-        
+        if(userFind.length === 0){
+            throw new Error("User Not Found")
+        }
+        else{
+            return userFind
+        }
     }
     async getAll(): Promise<UserData[]> {
         return await this.connection.user.findMany()
