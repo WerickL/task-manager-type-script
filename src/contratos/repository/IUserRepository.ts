@@ -1,8 +1,9 @@
 import { Injectable } from "@nestjs/common";
+import { UserData } from "../DTOs/UserDto";
 
 @Injectable()
 export abstract class IUserRepository{
-    abstract create(data: any): Promise <any>
-    abstract getAll(): Promise <any>
-    abstract getBy(data: any): Promise<any> 
+    abstract create(data: any): Promise <UserData>
+    abstract getAll(): Promise <UserData[]>
+    abstract getBy(data: any): Promise<UserData> 
 }

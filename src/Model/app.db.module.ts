@@ -1,4 +1,4 @@
-import { DynamicModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { IPrismaConnection } from 'src/contratos/dbConnection/IPrismaConnection';
 import { prismaConnection } from './conection/prisma/prismaConnection';
 import { prismaTaskRepository } from './repository/prisma/prismaTaskRepository';
@@ -25,20 +25,14 @@ import { IUserRepository } from 'src/contratos/repository/IUserRepository';
  ],
   exports: [
     {
-        provide:ITaskRepository,
-        useClass:prismaTaskRepository
-      },
-      {
-        provide:IUserRepository,
-        useClass:prismaUserRepository
-      }
+      provide:ITaskRepository,
+      useClass:prismaTaskRepository
+    },
+    {
+      provide:IUserRepository,
+      useClass:prismaUserRepository
+    }
   ]
 })
 export class DbModule {
-  // static forRoot(): DynamicModule {
-  //   return {
-  //     module: DbModule,
-  //     providers: [ prismaTaskRepository, prismaUserRepository ],
-  //   };
-  // }
 }

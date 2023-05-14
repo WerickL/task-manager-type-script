@@ -3,22 +3,19 @@ import { IUserRepository } from "../../../contratos/repository/IUserRepository";
 import { Injectable } from "@nestjs/common";
 import { NotFoundError } from "rxjs";
 import { IPrismaConnection } from "src/contratos/dbConnection/IPrismaConnection";
-export interface createUser{
-    nome: string
-    email: string
-    password: string
-}
+import { UserData } from "src/contratos/DTOs/UserDto";
+
 @Injectable()
 export class prismaUserRepository implements  IUserRepository{
     constructor(private connection: IPrismaConnection){
         
     }
-    async create(data: createUser): Promise<any> {
+    async create(data: UserData): Promise<UserData> {
         return await this.connection.user.create({
             data
         })
     }
-    async getBy(data: createUser): Promise<any>{
+    async getBy(data: UserData): Promise<any>{
     //     console.log("Here")
     //    return await this.connection.user.findFirstOrThrow({
     //         where:{
@@ -33,7 +30,7 @@ export class prismaUserRepository implements  IUserRepository{
         })
         
     }
-    async getAll(): Promise<any> {
+    async getAll(): Promise<UserData[]> {
         return await this.connection.user.findMany()
     }
 }
