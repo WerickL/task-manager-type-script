@@ -1,9 +1,10 @@
-import { Repository} from "../Repository";
-import { prismaService } from "../../conection/prismaService";
 import { Task } from "@prisma/client";
 import { Injectable } from "@nestjs/common";
+import { ITaskRepository } from "../../../contratos/repository/ITaskRepository";
+import { IPrismaConnection } from "src/contratos/dbConnection/IPrismaConnection";
 
 export interface TaskData{
+  id?: number
   descricao: string
   dataDeCadastro:  string
   dataDeInicio: string
@@ -14,8 +15,8 @@ export interface TaskData{
   
 } 
 @Injectable()
-export class prismaTaskRepository implements Repository{
-  constructor(private prismaService: prismaService){
+export class prismaTaskRepository implements ITaskRepository{
+  constructor(private prismaService: IPrismaConnection){
 
   }
     async create(data: TaskData): Promise<Task> {
@@ -26,5 +27,12 @@ export class prismaTaskRepository implements Repository{
     }
     async getAll(): Promise <Task[]>  {
       return await this.prismaService.task.findMany();
+    }
+    async getBy(data: TaskData): Promise <Task>  {
+      return await this.prismaService.task.findFirst({
+        where:{
+          id:data.id,
+        }
+      });
     }
 }

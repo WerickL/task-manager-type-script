@@ -1,8 +1,9 @@
 import { INestApplication, Injectable, OnModuleInit } from "@nestjs/common";
 import { PrismaClient } from '@prisma/client'
+import { IPrismaConnection } from "src/contratos/dbConnection/IPrismaConnection";
 
 @Injectable()
-export class prismaService extends PrismaClient implements OnModuleInit{
+export class prismaConnection extends PrismaClient implements IPrismaConnection{
     async onModuleInit() {
         await this.$connect();
     }

@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
-import { Repository } from "src/repository/Repository";
+import { Body, Controller, Post } from "@nestjs/common";
+import { ITaskRepository } from "src/contratos/repository/ITaskRepository";
 
 
 @Controller('task')
-export class TaskController {
-    constructor(private repository: Repository){
+export class CreateTaskController {
+    constructor(private repository: ITaskRepository){
     }
     @Post()
     async createTask(@Body() body: any){
@@ -19,8 +19,4 @@ export class TaskController {
             }
         )
     };
-    @Get()
-    async getTasks(){
-        return await this.repository.getAll();
-    }
 }
