@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import { ITaskRepository } from "src/contratos/repository/ITaskRepository";
+import { ITaskRepository } from "src/contract/repository/ITaskRepository";
 
 
 @Controller('task')

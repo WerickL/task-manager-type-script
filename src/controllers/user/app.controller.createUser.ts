@@ -1,30 +1,34 @@
 import { Body, Controller, Post, Res } from "@nestjs/common";
-import { response, Response } from "express";
-import { IUserRepository } from "src/contratos/repository/IUserRepository";
-
+import { Response } from "express";
+import { IUserRepository } from "src/contract/repository/IUserRepository";
+import { criptHelper } from "src/helper/criptHelper";
 
 @Controller("user")
 export class CreateUserController{
+    private bcript:criptHelper = new criptHelper()
     constructor(private repository: IUserRepository){
 
     }
     @Post()
     async createUser(@Body() body: any, @Res() response: Response){ 
-        //inserir validação de campos
-        //encriptar a senha antes 
-        try {
-            const responseUser = await this.repository.getBy(body)
-        } catch (error) {
-            console.log(error);
-            const data = await this.repository.create({
-                        nome: body.nome,
-                        email: body.email,
-                        password:body.password
-                    })
-            response.status(201).send(data)
-        }
-        response.status(409)
-        response.send({"message":"Ja existe um usuário vinculado a esse endereço de e-mail"})
-               
+        if(!body.email || !body.password){
+            response.status(400).send({"message":"Email/Password need to be informed"})
+        }else{
+            const responseUser = await this.repository.getByEmail(body.email)
+            if(responseUser !== null) {
+                //conflict error
+                response.status(409)
+                response.send({"message":"Ja existe um usuário vinculado a esse endereço de e-mail"})
+            } else {
+                const data = await this.repository.create({
+                            nome: body.nome,
+                            email: body.email,
+                            password: await this.bcript.getPasswordHash(body.password)
+                        })
+                delete(data.password)
+                response.status(201)
+                response.send(data)
+            }
+        }        
     }
 }

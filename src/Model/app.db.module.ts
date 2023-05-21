@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { IPrismaConnection } from 'src/contratos/dbConnection/IPrismaConnection';
+import { IPrismaConnection } from 'src/contract/dbConnection/IPrismaConnection';
 import { prismaConnection } from './conection/prisma/prismaConnection';
 import { prismaTaskRepository } from './repository/prisma/prismaTaskRepository';
 import { prismaUserRepository } from './repository/prisma/prismaUserRepository';
-import { ITaskRepository } from 'src/contratos/repository/ITaskRepository';
-import { IUserRepository } from 'src/contratos/repository/IUserRepository';
+import { ITaskRepository } from 'src/contract/repository/ITaskRepository';
+import { IUserRepository } from 'src/contract/repository/IUserRepository';
 
 
 @Module({

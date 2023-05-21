@@ -1,7 +1,7 @@
-import { IUserRepository } from "../../../contratos/repository/IUserRepository";
+import { IUserRepository } from "../../../contract/repository/IUserRepository";
 import { Injectable } from "@nestjs/common";
-import { IPrismaConnection } from "src/contratos/dbConnection/IPrismaConnection";
-import { UserData } from "src/contratos/DTOs/UserDto";
+import { IPrismaConnection } from "src/contract/dbConnection/IPrismaConnection";
+import { UserData } from "src/contract/DTOs/UserDto";
 
 @Injectable()
 export class prismaUserRepository implements  IUserRepository{
@@ -13,19 +13,14 @@ export class prismaUserRepository implements  IUserRepository{
             data
         })
     }
-    async getBy(data: UserData): Promise<UserData[]>{
-        let userFind: UserData[]
-        userFind = await this.connection.user.findMany({
+    async getByEmail(email: string): Promise<UserData>{
+        let userFind: UserData
+        userFind = await this.connection.user.findUnique({
             where:{
-                email: data.email
+                email: email
             }
         })
-        if(userFind.length === 0){
-            throw new Error("User Not Found")
-        }
-        else{
-            return userFind
-        }
+        return userFind
     }
     async getAll(): Promise<UserData[]> {
         return await this.connection.user.findMany()

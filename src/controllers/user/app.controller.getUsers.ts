@@ -1,5 +1,5 @@
 import { Controller, Get } from "@nestjs/common";
-import { IUserRepository } from "src/contratos/repository/IUserRepository";
+import { IUserRepository } from "src/contract/repository/IUserRepository";
 
 
 @Controller("user")
