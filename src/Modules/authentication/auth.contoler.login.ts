@@ -4,10 +4,12 @@ import { IUserRepository } from "src/contract/repository/IUserRepository";
 import { criptHelper } from "src/helper/criptHelper";
 import { userExists } from "src/helper/userHelper";
 import { JwtService } from '@nestjs/jwt';
+
+
 @Controller("oauth2")
-export class login{
-    private bcript = new criptHelper
-    constructor(private repository: IUserRepository, private jwt: JwtService){}
+export class contollerLogin{
+    private bcript = new criptHelper()
+    constructor(private repository: IUserRepository, private jwt: JwtService, ){}
     @Post("auth")
     async login(@Body() body: any, @Res() response: Response){
         
@@ -26,7 +28,7 @@ export class login{
             if(check){
                 const payload = {
                     username: user.email,
-                    sub: user.id
+                    userId: user.id
                 }
                 const acessToken = this.jwt.sign(payload)
                 response.status(201)

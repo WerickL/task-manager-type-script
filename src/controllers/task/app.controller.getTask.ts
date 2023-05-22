@@ -1,6 +1,6 @@
 import { Controller, Get, Request, UseGuards } from "@nestjs/common";
 import { ITaskRepository } from "src/contract/repository/ITaskRepository";
-import { AuthGuard } from "../authentication/auth.service";
+import { AuthGuard } from "../../Modules/authentication/auth.service";
 
 
 @Controller('task')
@@ -13,6 +13,6 @@ export class GetTaskController {
     //    console.log(req);
        const user = req.user
        
-        return await this.repository.getByUser(user.sub);
+        return await this.repository.getByUser(user.userId);
     }
 }

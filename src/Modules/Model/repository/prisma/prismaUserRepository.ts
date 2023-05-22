@@ -1,7 +1,7 @@
-import { IUserRepository } from "../../../contract/repository/IUserRepository";
 import { Injectable } from "@nestjs/common";
 import { IPrismaConnection } from "src/contract/dbConnection/IPrismaConnection";
 import { UserData } from "src/contract/DTOs/UserDto";
+import { IUserRepository } from "src/contract/repository/IUserRepository";
 
 @Injectable()
 export class prismaUserRepository implements  IUserRepository{

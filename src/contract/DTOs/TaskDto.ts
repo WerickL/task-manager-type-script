@@ -7,5 +7,5 @@ export interface TaskData{
     dataPrevista: string
     dataDeConclusao: string
     detalhes: string
-    
+    authorId: number
   } 
