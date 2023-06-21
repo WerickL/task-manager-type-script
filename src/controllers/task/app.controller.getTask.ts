@@ -9,10 +9,9 @@ export class GetTaskController {
     }
     @UseGuards(AuthGuard)
     @Get()
-    async getTasks(@Request() req: any){
+    async getTasksByUser(@Request() req: any){
     //    console.log(req);
        const user = req.user
-       
         return await this.repository.getByUser(user.userId);
     }
 }
