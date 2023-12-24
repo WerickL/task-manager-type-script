@@ -11,7 +11,7 @@ import { DeleteTaskController } from './controllers/task/app.contoller.deleteTas
 @Module({
   imports: [DbModule, JwtModule.register({
     global: true,
-    secret: process.env.SECRET_KEY,
+    secret: "10",
     signOptions: { expiresIn: '8h' },
   }), authModule],
   controllers: [CreateTaskController, GetTaskController, CreateUserController, GetUserController, DeleteTaskController],

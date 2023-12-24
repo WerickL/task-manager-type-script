@@ -7,6 +7,7 @@ async function bootstrap() {
     await app.listen(3000);
 
   } catch (error) {
+    console.log(error)
   }
 }
 bootstrap();
