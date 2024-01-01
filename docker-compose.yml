@@ -2,17 +2,19 @@ version: '3'
 services:
   mysql:
     image: mysql:latest
-    restart: no
+    restart: "no"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT}
       MYSQL_DATABASE: ${MYSQL_DB}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASS}
     ports:
-     - "3306:3306"
+     - "9091:3306"
   node_app:
     build:
       context: .
+    volumes:
+      - ./:/home/app
     # Mapeie a porta do contêiner para a porta desejada no host (por exemplo, 3000:3000)
     ports:
       - "3000:3000"
@@ -21,3 +23,4 @@ services:
     tty: true
     depends_on:
           - mysql
+    command: sh -c "mv ../dependencies/node_modules . && /usr/wait-for-it.sh -t 120 mysql:3306 -- npx prisma db push && npm run start:dev"

@@ -2,21 +2,17 @@
 FROM node:latest
 
 # Crie e defina o diretório de trabalho no contêiner
-WORKDIR /home/werick/Documentos/type-script-task-manager
+WORKDIR /home/app
 
-# Copie o arquivo package.json e package-lock.json para o diretório de trabalho
-COPY package*.json ./
+# Copie o arquivo package.json e package-lock.json para um diretório temporário
+RUN mkdir ../dependencies
 
-# Instale as dependências
-RUN npm install
-RUN npm i -g @nestjs/cli
-RUN npm install @prisma/client
-RUN npm install bcrypt
-RUN npx prisma generate
-VOLUME /home/werick/Documentos/type-script-task-manager/
-COPY . .
+COPY package*.json ../dependencies/
+# Instale as dependências no diretório temporário
+RUN cd ../dependencies/ && npm install && npx prisma generate
+RUN ls -l
 # Instale o 'wait-for-it'
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /usr/wait-for-it.sh
 RUN chmod +x /usr/wait-for-it.sh
 
-CMD ["sh", "-c", "/usr/wait-for-it.sh -t 120 mysql:3306 -- npx prisma db push && npm run start:dev"]
+CMD [""]
