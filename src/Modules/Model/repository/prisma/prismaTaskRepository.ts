@@ -13,7 +13,7 @@ export class prismaTaskRepository implements ITaskRepository{
     async create(data: TaskData): Promise<TaskData> {
      return await this.prismaService.
       task.create({
-        data 
+        data
       })
     }
     async getAll(): Promise <TaskData[]>  {
@@ -27,12 +27,20 @@ export class prismaTaskRepository implements ITaskRepository{
         }
       });
     }
-    async getByUser(id: number): Promise <Task[]>  {
-      //id nunca pode ser nulo
+    async getByUser(id: number): Promise <TaskData[]>  {
+      //id nunca pode ser nulo tratar no caso de uso
       return await this.prismaService.task.findMany({
         where:{
           authorId: id
         },
       });
+    }
+
+    async deleteById(id: number): Promise <TaskData>{
+      return await this.prismaService.task.delete({
+        where:{
+          id:id
+        }
+      })
     }
 }

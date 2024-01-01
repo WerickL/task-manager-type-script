@@ -12,7 +12,6 @@ export class GetTaskController {
     async getTasks(@Request() req: any){
     //    console.log(req);
        const user = req.user
-       
         return await this.repository.getByUser(user.userId);
     }
 }

@@ -1,12 +1,23 @@
-version: "2"
+version: '3'
 services:
-  db-ts:
-    image: mysql
-    restart: always
+  mysql:
+    image: mysql:latest
+    restart: no
     environment:
-      MYSQL_USER: ${DB_USER}
-      MYSQL_ROOT_PASSWORD: ${MY_SQL_ROOT_PASS}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_PASSWORD: ${MY_SQL_PASS}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT}
+      MYSQL_DATABASE: ${MYSQL_DB}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASS}
     ports:
-     - "9091:3306"
+     - "3306:3306"
+  node_app:
+    build:
+      context: .
+    # Mapeie a porta do contêiner para a porta desejada no host (por exemplo, 3000:3000)
+    ports:
+      - "3000:3000"
+    # Mantenha o contêiner em execução
+    stdin_open: true
+    tty: true
+    depends_on:
+          - mysql

@@ -20,7 +20,7 @@ export class contollerLogin{
             const password = body.password
             const user = await this.repository.getByEmail(email)
             if(!userExists(user)){
-                response.status(404).send("User not found")
+                return response.status(404).send("User not found")
             }
             
             const check = await this.bcript.checkPassword(password, user.password.trim())
@@ -32,7 +32,7 @@ export class contollerLogin{
                 }
                 const acessToken = this.jwt.sign(payload)
                 response.status(201)
-                response.send({"acess-token":acessToken})
+                response.send({"access-token":acessToken})
             }else{
                 response.status(401)
                 response.send({"detail":"incorrect email or password"})
