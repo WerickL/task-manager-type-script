@@ -8,7 +8,7 @@ export class GetTaskController {
     constructor(private repository: ITaskRepository){
     }
     @UseGuards(AuthGuard)
-    @Get()
+    @Get("/:id")
     async getTasks(@Request() req: any){
     //    console.log(req);
        const user = req.user

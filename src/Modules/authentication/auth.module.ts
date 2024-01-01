@@ -1,4 +1,4 @@
-import { DynamicModule, Inject, Module } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 import { contollerLogin } from "./auth.contoler.login";
 import { DbModule } from "../Model/model.module";
 import { AuthGuard } from "./auth.service";

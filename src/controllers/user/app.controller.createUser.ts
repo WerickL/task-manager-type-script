@@ -21,7 +21,7 @@ export class CreateUserController{
                 response.send({"message":"Ja existe um usuário vinculado a esse endereço de e-mail"})
             } else {
                 const data = await this.repository.create({
-                            nome: body.nome,
+                            name: body.name,
                             email: body.email,
                             password: await this.bcript.getPasswordHash(body.password)
                         })
