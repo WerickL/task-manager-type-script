@@ -13,6 +13,7 @@ RUN npm i -g @nestjs/cli
 RUN npm install @prisma/client
 RUN npm install bcrypt
 RUN npx prisma generate
+VOLUME /home/werick/Documentos/type-script-task-manager/
 COPY . .
 # Instale o 'wait-for-it'
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /usr/wait-for-it.sh

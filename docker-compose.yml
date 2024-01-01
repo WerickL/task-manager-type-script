@@ -16,9 +16,6 @@ services:
     # Mapeie a porta do contêiner para a porta desejada no host (por exemplo, 3000:3000)
     ports:
       - "3000:3000"
-    # Use volumes para mapear o código-fonte do host para o contêiner
-    volumes:
-      - .:/home/werick/Documentos/type-script-task-manager/
     # Mantenha o contêiner em execução
     stdin_open: true
     tty: true
