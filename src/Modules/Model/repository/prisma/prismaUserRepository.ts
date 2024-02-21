@@ -22,6 +22,16 @@ export class prismaUserRepository implements  IUserRepository{
         })
         return userFind
     }
+    async getById(id: number): Promise<UserData>{
+        let userFind: UserData
+         
+        userFind = await this.connection.user.findUnique({
+            where:{
+                id: Number (id)
+            }
+        })
+        return userFind
+    }
     async getAll(): Promise<UserData[]> {
         return await this.connection.user.findMany()
     }

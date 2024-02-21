@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client'
 import { IPrismaConnection } from "src/contract/dbConnection/IPrismaConnection";
 
 @Injectable()
-export class prismaConnection extends PrismaClient implements IPrismaConnection{
+export class prismaConnection extends PrismaClient{
     async onModuleInit() {
         await this.$connect();
     }

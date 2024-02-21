@@ -6,4 +6,5 @@ export abstract class IUserRepository{
     abstract create(data: any): Promise <UserData>
     abstract getAll(): Promise <UserData[]>
     abstract getByEmail(data: any): Promise<UserData> 
+    abstract getById(data: any): Promise<UserData>
 }

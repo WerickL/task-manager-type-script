@@ -8,8 +8,8 @@ export class GetTaskController {
     constructor(private repository: ITaskRepository){
     }
     @UseGuards(AuthGuard)
-    @Get()
-    async getTasksByUser(@Request() req: any){
+    @Get("/:id")
+    async getTasks(@Request() req: any){
     //    console.log(req);
        const user = req.user
         return await this.repository.getByUser(user.userId);
