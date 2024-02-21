@@ -9,7 +9,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASS}
     ports:
-     - "3306:3306"
+     - "9091:3306"
   node_app:
     build:
       context: .
@@ -21,3 +21,6 @@ services:
     tty: true
     depends_on:
           - mysql
+    volumes:
+      - ./:/home/werick/Documentos/type-script-task-manager/
+    command: sh -c "/usr/wait-for-it.sh -t 120 mysql:3306 -- npm install && npx prisma db push && npm run start:dev" 
